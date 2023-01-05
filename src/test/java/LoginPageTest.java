@@ -2,6 +2,8 @@ import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.ValueSource;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -28,6 +30,12 @@ public class LoginPageTest {
 //       driver.get(HOME_PAGE_FACEBOOK);
 //    }
 
+
+
+//    @ParameterizedTest
+//    @ValueSource(ints={-10,0,27,36677})
+//    public void mobileNumberOrEmail(){
+
     @Test
     public void clickCreateNewAcc() throws InterruptedException {
 
@@ -35,13 +43,50 @@ public class LoginPageTest {
         assertNotNull(createNewAccButton);
         createNewAccButton.click();
         Thread.sleep(1000);
+    }
+    @Test
+    public void locateFields() {
+        WebElement firstName = driver.findElement(By.xpath("//input[@name='firstname']"));
+        assertNotNull(firstName);
+        WebElement lastName= driver.findElement(By.xpath("//input[@name ='lastname']"));
+        assertNotNull(lastName);
+        WebElement phoneEmail = driver.findElement(By.xpath("//input[@name ='reg_email__']"));
+        assertNotNull(phoneEmail);
+        WebElement forgotPassElement = driver.findElement(By.xpath("//input[@type ='password']"));
+        assertNotNull(forgotPassElement);
+        WebElement birthMonth = driver.findElement(By.xpath("//select[@name ='birthday_month']"));
+        assertNotNull(birthMonth);
+        WebElement birthDay = driver.findElement(By.xpath("//select[@name ='birthday_day']"));
+        assertNotNull(birthDay);
+        WebElement birthYear = driver.findElement(By.xpath("//select[@name ='birthday_year']"));
+        assertNotNull(birthYear);
+        WebElement genderFemale = driver.findElement(By.xpath("//label[text()='Female']"));
+        assertNotNull(genderFemale);
+        WebElement genderMale = driver.findElement(By.xpath("//label[text()='Male']"));
+        assertNotNull(genderMale);
+        WebElement genderCustom = driver.findElement(By.xpath("//label[text()='Custom']"));
+        assertNotNull(genderCustom);
+//        WebElement genderMale = driver.findElement(By.name("Male"));
+//        assertNotNull(genderMale);
+//        WebElement genderCustom = driver.findElement(By.name("Custom"));
+//        assertNotNull(genderCustom);
 
-        WebElement firstName=driver.findElement(By.xpath("//*[text()='firstname']"));
-       assertNotNull(firstName);
-        //firstName.click();
-        firstName.sendKeys("Olga");
-        String firstNameValue= firstName.getAttribute("value");
-        assertEquals("Olga",firstNameValue);
+
+    }
+//        @ParameterizedTest
+//        @ValueSource(strings = {"Olga", "1234567","!@#Okjh"})
+//        public void firstName(String name){
+//            WebElement firstName=driver.findElement(By.xpath("//input[@name='firstname']"));
+//            assertNotNull(firstName);
+//            firstName.click();
+//            firstName.sendKeys(name);
+//            String firstNameValue= firstName.getAttribute("value");
+//            assertEquals(name,firstNameValue);
+//
+//       }
+
+
+
 
 
 
@@ -53,4 +98,4 @@ public class LoginPageTest {
 
 
         }
-}
+
