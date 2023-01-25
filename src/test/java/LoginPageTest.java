@@ -52,8 +52,8 @@ public class LoginPageTest {
         assertNotNull(lastName);
         WebElement phoneEmail = driver.findElement(By.xpath("//input[@name ='reg_email__']"));
         assertNotNull(phoneEmail);
-        WebElement forgotPassElement = driver.findElement(By.xpath("//input[@type ='password']"));
-        assertNotNull(forgotPassElement);
+        WebElement newPassElement = driver.findElement(By.xpath("//input[@type ='password']"));
+        assertNotNull(newPassElement);
         WebElement birthMonth = driver.findElement(By.xpath("//select[@name ='birthday_month']"));
         assertNotNull(birthMonth);
         WebElement birthDay = driver.findElement(By.xpath("//select[@name ='birthday_day']"));
@@ -66,10 +66,14 @@ public class LoginPageTest {
         assertNotNull(genderMale);
         WebElement genderCustom = driver.findElement(By.xpath("//label[text()='Custom']"));
         assertNotNull(genderCustom);
-//        WebElement genderMale = driver.findElement(By.name("Male"));
-//        assertNotNull(genderMale);
-//        WebElement genderCustom = driver.findElement(By.name("Custom"));
-//        assertNotNull(genderCustom);
+        genderCustom.click();
+        WebElement selectPronoun = driver.findElement(By.xpath("//select[@aria-label='Select your pronoun']"));
+        assertNotNull(selectPronoun);
+        WebElement Gender = driver.findElement(By.xpath("//input[@aria-label ='Gender (optional)']"));
+        assertNotNull(Gender);
+        WebElement signUpButton = driver.findElement(By.xpath("//button[@type='submit']"));
+        assertNotNull(signUpButton);
+
 
 
     }
@@ -84,6 +88,39 @@ public class LoginPageTest {
 //            assertEquals(name,firstNameValue);
 //
 //       }
+    @Test
+    public void allValidDataTest (){
+        WebElement firstName = driver.findElement(By.xpath("//input[@name='firstname']"));
+        firstName.sendKeys("Olga");
+
+        WebElement lastName= driver.findElement(By.xpath("//input[@name ='lastname']"));
+        lastName.sendKeys("Kosareva");
+
+        WebElement phoneEmail = driver.findElement(By.xpath("//input[@name ='reg_email__']"));
+        phoneEmail.sendKeys("olga.kosareva@gmail.com");
+
+        WebElement reEnterPhoneEmail = driver.findElement(By.xpath("//input[@name ='reg_email_confirmation__']"));
+        reEnterPhoneEmail.sendKeys("olga.kosareva@gmail.com");
+
+     driver.findElement(By.id("password_step_input")).sendKeys("Teast1234!");
+
+
+
+        WebElement birthMonth = driver.findElement(By.xpath("//select[@name ='birthday_month']"));
+        birthMonth.sendKeys("Jan");
+
+        WebElement birthDay = driver.findElement(By.xpath("//select[@name ='birthday_day']"));
+        birthDay.sendKeys("25");
+
+        WebElement birthYear = driver.findElement(By.xpath("//select[@name ='birthday_year']"));
+        birthYear.sendKeys("2002");
+
+        WebElement genderFemale = driver.findElement(By.xpath("//label[text()='Female']"));
+        genderFemale.click();
+
+    driver.findElement(By.name("websubmit")).click();
+
+    }
 
 
 
