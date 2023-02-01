@@ -66,7 +66,6 @@ public class LoginPageTest {
         WebElement signUpButton = driver.findElement(By.xpath("//button[@type='submit']"));
         assertNotNull(signUpButton);
 
-
     }
 
 
@@ -126,8 +125,35 @@ public class LoginPageTest {
         assertEquals(HOME_PAGE_FACEBOOK, actualURL, "url do not match");
 
     }
+    
+@ParameterizedTest
+    @ValueSource(strings = {"", "12jh67","!@#Okjh"})
+    public void invalidLastNameTest (String b) throws InterruptedException {
+        driver.findElement(By.xpath("//input[@name='firstname']")).sendKeys(b);
 
+        driver.findElement(By.xpath("//input[@name ='lastname']")).sendKeys("Smith");
 
+        driver.findElement(By.xpath("//input[@name ='reg_email__']")).sendKeys("johnsmith@gmail.com");
+
+        driver.findElement(By.xpath("//input[@name ='reg_email_confirmation__']")).sendKeys("johnsmith@gmail.com");
+
+        driver.findElement(By.id("password_step_input")).sendKeys("Teast1234!");
+
+        driver.findElement(By.xpath("//select[@name ='birthday_month']")).sendKeys("Jan");
+
+        driver.findElement(By.xpath("//select[@name ='birthday_day']")).sendKeys("25");
+
+        driver.findElement(By.xpath("//select[@name ='birthday_year']")).sendKeys("2002");
+
+        driver.findElement(By.xpath("//label[text()='Female']")).click();
+
+        driver.findElement(By.name("websubmit")).click();
+        Thread.sleep(10000);
+
+        String actualURL = driver.getCurrentUrl();
+        assertEquals(HOME_PAGE_FACEBOOK, actualURL, "url do not match");
+
+    }
 
 
 }
