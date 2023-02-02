@@ -71,13 +71,13 @@ public class LoginPageTest {
 
     @Test
     public void allValidDataTest ()throws InterruptedException {
-        driver.findElement(By.xpath("//input[@name='firstname']")).sendKeys("Valentina");
+        driver.findElement(By.xpath("//input[@name='firstname']")).sendKeys("Oleg");
 
-        driver.findElement(By.xpath("//input[@name ='lastname']")).sendKeys("Kosar");
+        driver.findElement(By.xpath("//input[@name ='lastname']")).sendKeys("Kosarev");
 
-        driver.findElement(By.xpath("//input[@name ='reg_email__']")).sendKeys("valia.kosar@gmail.com");
+        driver.findElement(By.xpath("//input[@name ='reg_email__']")).sendKeys("oleg.kosarev@gmail.com");
 
-        driver.findElement(By.xpath("//input[@name ='reg_email_confirmation__']")).sendKeys("valia.kosar@gmail.com");
+        driver.findElement(By.xpath("//input[@name ='reg_email_confirmation__']")).sendKeys("oleg.kosarev@gmail.com");
 
         driver.findElement(By.id("password_step_input")).sendKeys("Sterteo!1234!");
 
