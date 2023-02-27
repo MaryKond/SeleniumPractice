@@ -1,12 +1,15 @@
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.ValueSource;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import org.openqa.selenium.support.ui.Select;
 
 import java.time.Duration;
 
@@ -21,10 +24,10 @@ public class ErrorsMessageTest {
         driver = SharedDriver.getWebDriver();
         driver.get(HOME_PAGE);
     }
-//    @AfterEach
-//    public void tearDown(){
-//        driver.get(HOME_PAGE);
-//    }
+    @AfterEach
+    public void tearDown(){
+        driver.get(HOME_PAGE);
+    }
 
     @Test
     public void errorMessageTest() {
@@ -45,43 +48,21 @@ public class ErrorsMessageTest {
         assertNotNull(errorEmail);
 }
 //     1st attempt
-        @Test
-        public void errorPasswordTest() {
+        @ParameterizedTest
+        @ValueSource(strings = {"Mar", "Jul","Nov"})
+        public void birthdayDropMenuTest(String month) {
             driver.findElement(By.xpath("//*[text()='Create new account']")).click();
             assertNotNull(driver.findElement(By.xpath("//*[text()='Sign Up']")));
-            WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(5));
-            driver.findElement(By.xpath("//input[@name ='reg_email__']")).sendKeys("kkmorgano@gmail.com");
-            wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//button[@name='websubmit']"))).click();
-            //driver.findElement(By.xpath("//input[@type ='password']")).click();
-            driver.findElement(By.xpath("//input[@name ='reg_email_confirmation__']")).click();
-            WebElement errorReEnterEmail = driver.findElement(By.xpath("//*[contains(text(),'Please re-enter')]"));
-            assertNotNull(errorReEnterEmail);
+            
+           driver.findElement(By.xpath("//*[@title='Month']")).click();
+           driver.findElement(By.xpath("//*[text()='"+month+"']")).click();
+           Select select=new Select(driver.findElement(By.xpath("//*[@title='Month']")));
+           select.selectByVisibleText(month);
+            WebElement monthValue = select.getFirstSelectedOption();
+            String selectedoption = monthValue.getText();
+//           String monthValue=driver.findElement(By.xpath("//*[@title='Month']")).getFirstSelectedOption();
+           assertEquals(month,selectedoption);
 
-            wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//input[@type ='password']"))).click(); //name="pass" type="password"> is not clickable at point (1297,238) because another element <div class="_3ixn"> obscures it
-            driver.findElement(By.xpath("//input[@type ='password']")).click();
-            WebElement errorPassword = driver.findElement(By.xpath("//*[contains(text(),'Enter a combination of at least')]"));
-            assertNotNull(errorPassword);
-
-//                 3d attempt
-//            driver.findElement(By.xpath("//*[text()='Create new account']")).click();
-//            assertNotNull(driver.findElement(By.xpath("//*[text()='Sign Up']")));
-//
-//            WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(5));
-//            wait.until(ExpectedConditions.invisibilityOfElementLocated((By.xpath( "//input[@type ='password']"))));
-//            driver.findElement(By.xpath("//input[@type ='password']")).click();
-//            WebElement errorPassword = driver.findElement(By.xpath("//*[contains(text(),'Enter a combination of at least')]"));
-//            assertNotNull(errorPassword);
-//
-
-
-//      2d attempt
-
-//            WebElement passwordField = driver.findElement(By.xpath("//input[@type ='password']"));
-//            Actions action = new Actions(driver);
-//            action.moveToElement(passwordField).click().build().perform();
-//
-//            WebElement errorPassword = driver.findElement(By.xpath("//*[contains(text(),'Enter a combination of at least')]"));
-//            assertNotNull(errorPassword);
 
         }
 
