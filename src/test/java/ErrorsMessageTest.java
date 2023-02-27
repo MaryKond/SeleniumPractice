@@ -50,10 +50,10 @@ public class ErrorsMessageTest {
 //     1st attempt
         @ParameterizedTest
         @ValueSource(strings = {"Mar", "Jul","Nov"})
-        public void birthdayDropMenuTest(String month) {
+        public void monthDropMenuTest(String month) {
             driver.findElement(By.xpath("//*[text()='Create new account']")).click();
             assertNotNull(driver.findElement(By.xpath("//*[text()='Sign Up']")));
-            
+
            driver.findElement(By.xpath("//*[@title='Month']")).click();
            driver.findElement(By.xpath("//*[text()='"+month+"']")).click();
            Select select=new Select(driver.findElement(By.xpath("//*[@title='Month']")));
@@ -63,12 +63,29 @@ public class ErrorsMessageTest {
 //           String monthValue=driver.findElement(By.xpath("//*[@title='Month']")).getFirstSelectedOption();
            assertEquals(month,selectedoption);
 
-
         }
+    @ParameterizedTest
+    @ValueSource(strings = {"3", "18","29"})
+    public void DayDropMenuTest(String day) {
+        driver.findElement(By.xpath("//*[text()='Create new account']")).click();
+        assertNotNull(driver.findElement(By.xpath("//*[text()='Sign Up']")));
 
-
-
-
+        driver.findElement(By.xpath("//*[@title='Day']")).click();
+        driver.findElement(By.xpath("//*[text()='" + day + "']")).click();
+        String dayValue = driver.findElement(By.xpath("//*[@title='Day']")).getAttribute("value");
+        assertEquals(day, dayValue);
+    }
+    @ParameterizedTest
+    @ValueSource(strings = {"1905","1950", "2020"})
+    public void yearParametrizedTest(String yearInput)throws InterruptedException{
+        driver.findElement(By.xpath("//*[text()='Create new account']")).click();
+        assertNotNull(driver.findElement(By.xpath("//*[text()='Sign Up']")));
+        Thread.sleep(2000);
+        driver.findElement(By.xpath("//*[@title='Year']")).click();
+        driver.findElement(By.xpath("//*[text()='"+ yearInput +"']")).click();
+        String yearValue = driver.findElement(By.xpath("//*[@title='Year']")).getAttribute("value");
+        assertEquals(yearInput, yearValue);
+    }
 
 
 
